@@ -4,11 +4,14 @@ namespace _Project
 {
     public class MenuDeactive : MonoBehaviour
     {
-        [SerializeField] private Menu _menu;
-        [SerializeField] private GameStart _gameStart;
+        private GameStart _gameStart;
+        private Menu _menu;
 
-        private void Awake()
+        private void Start()
         {
+            _gameStart = GameStart.Instance;
+            _menu = Menu.Instance;
+
             _gameStart.GameStarted += MenuDeactivate;
         }
 

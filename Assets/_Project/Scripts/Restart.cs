@@ -5,11 +5,14 @@ namespace _Project
 {
     public class Restart : MonoBehaviour
     {
-        [SerializeField] private PlayerKill _playerKill;
+        private PlayerKill _playerKill;
 
-        private void Awake()
+        private void Start()
         {
             gameObject.SetActive(false);
+
+            _playerKill = PlayerKill.Instance;
+
             _playerKill.OnPlayerKilled += ButtonActive;
         }
 

@@ -6,18 +6,20 @@ namespace _Project
 
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private GameStart _gameStart;
         [SerializeField] private float _jumpHeight;
         [SerializeField] private float _minRotationZ;
         [SerializeField] private float _maxRotationZ;
         [SerializeField] private float _rotationSpeed;
 
+        private GameStart _gameStart;
         private Rigidbody2D _rigidbody;
         private Quaternion _maxRotation;
         private Quaternion _minRotation;
 
-        private void Awake()
+        private void Start()
         {
+            _gameStart = GameStart.Instance;
+
             GetComponent<PlayerMovement>().enabled = false;
 
             _gameStart.GameStarted += WakeUp;

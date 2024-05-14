@@ -5,17 +5,21 @@ namespace _Project
 {
     public class DisplayNumberOfPointsOnScreen : MonoBehaviour
     {
-        [SerializeField] private GameStart _gameStart;
-        [SerializeField] private PlayersPoints _playersPoints;
         [SerializeField] private TMP_Text _score;
         [SerializeField] private TMP_Text _finalScore;
 
-        private void Awake()
+        private GameStart _gameStart;
+        private PlayersPoints _playersPoints;
+
+        private void Start()
         {
+            _gameStart = GameStart.Instance;
+            _playersPoints = PlayersPoints.Instance;
+
             gameObject.SetActive(false);
 
             _score.text = _playersPoints.Points.ToString();
-            
+
             _gameStart.GameStarted += WakeUp;
             _playersPoints.OnPointsChanged += DisplayPoints;
         }

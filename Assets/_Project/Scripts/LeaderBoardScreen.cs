@@ -10,16 +10,18 @@ namespace _Project
     {
         [SerializeField] private TMP_Text _topPlayersText;
         [SerializeField] private LeaderBoard _leaderBoard;
-        [SerializeField] private PlayerKill _playerKill;
         [SerializeField] private int _topPlayersCount;
+
+        private PlayerKill _playerKill;
 
         private Dictionary<string, int> _playerDictionary = new Dictionary<string, int>();
         private string _highscore;
         private string _topHighscore = "";
-        public int BestPlayerScore { get; private set; }
 
-        private void Awake()
+        private void Start()
         {
+            _playerKill = PlayerKill.Instance;
+
             SetTopPlayers();
             _playerKill.OnPlayerKilled += SetTopPlayers;
         }
@@ -32,14 +34,14 @@ namespace _Project
         private void SetTopPlayers()
         {
             int topPlayersCount = _topPlayersCount;
-            
+
             _highscore = PlayerPrefs.GetString(_leaderBoard.Highscore);
-            
+
             if (_highscore == null)
             {
                 return;
             }
-            
+
             for (int i = 0; i < _highscore.Split(';').Length; i++)
             {
                 if (_highscore.Split(";")[i] != "")
@@ -56,9 +58,6 @@ namespace _Project
 
             var sortedDict = _playerDictionary.OrderByDescending(x => x.Value).
                 Take(topPlayersCount).ToDictionary(x => x.Key, x => x.Value);
-            var first = sortedDict.OrderBy(kvp => kvp.Key).First();
-            string firstKey = first.Key;
-            BestPlayerScore = sortedDict[firstKey];
 
             foreach (var highscore in sortedDict)
             {

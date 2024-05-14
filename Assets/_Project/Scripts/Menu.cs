@@ -10,6 +10,21 @@ namespace _Project
         [SerializeField] private TMP_InputField _inputField;
         [SerializeField] private Button _startGameButton;
         [SerializeField] private GameObject _leadeBoardFrame;
+
+        public static Menu Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (!Instance)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
         public void RemoveLogo()
         {
             _logo.gameObject.SetActive(false);

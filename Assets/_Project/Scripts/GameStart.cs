@@ -3,23 +3,13 @@ using System;
 
 namespace _Project
 {
-    public class GameStart : MonoBehaviour
+    public class GameStart : Singleton<GameStart>
     {
-        public static GameStart Instance { get; private set; }
-
         public event Action GameStarted;
 
-        private void Awake()
-        {
-            if (!Instance)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-
+        protected override void Awake()
+        { 
+            base.Awake();
             Time.timeScale = 0f;
         }
 
